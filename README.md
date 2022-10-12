@@ -1,107 +1,107 @@
-# Kubernetes (K8s)
+# Arquitetura e Administração de Containers, Microservices, Kubernetes
 
-[![GoPkg Widget]][GoPkg] [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/569/badge)](https://bestpractices.coreinfrastructure.org/projects/569)
+<p align="center" width="100%">
+    <img src="https://avatars.githubusercontent.com/u/5429470?s=200&v=4" width="100" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="https://github.com/docker/compose/blob/v2/logo.png?raw=true" width="100" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png" width="100" />
 
-<img src="https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png" width="100">
+</p>
 
-----
+---
 
-Kubernetes, also known as K8s, is an open source system for managing [containerized applications]
-across multiple hosts. It provides basic mechanisms for deployment, maintenance,
-and scaling of applications.
+## Tecnologias
 
-Kubernetes builds upon a decade and a half of experience at Google running
-production workloads at scale using a system called [Borg],
-combined with best-of-breed ideas and practices from the community.
+- [Docker](https://www.docker.com/);
+- [Docker Compose](https://docs.docker.com/compose/);
+- [Kubernetes](https://kubernetes.io/);
 
-Kubernetes is hosted by the Cloud Native Computing Foundation ([CNCF]).
-If your company wants to help shape the evolution of
-technologies that are container-packaged, dynamically scheduled,
-and microservices-oriented, consider joining the CNCF.
-For details about who's involved and how Kubernetes plays a role,
-read the CNCF [announcement].
+## Docker
 
-----
+Para instalar o docker acesse esse [link](https://docs.docker.com/engine/install/).
 
-## To start using K8s
+**Logar no Docker Hub**
 
-See our documentation on [kubernetes.io].
-
-Try our [interactive tutorial].
-
-Take a free course on [Scalable Microservices with Kubernetes].
-
-To use Kubernetes code as a library in other applications, see the [list of published components](https://git.k8s.io/kubernetes/staging/README.md).
-Use of the `k8s.io/kubernetes` module or `k8s.io/kubernetes/...` packages as libraries is not supported.
-
-## To start developing K8s
-
-The [community repository] hosts all information about
-building Kubernetes from source, how to contribute code
-and documentation, who to contact about what, etc.
-
-If you want to build Kubernetes right away there are two options:
-
-##### You have a working [Go environment].
-
-```
-mkdir -p $GOPATH/src/k8s.io
-cd $GOPATH/src/k8s.io
-git clone https://github.com/kubernetes/kubernetes
-cd kubernetes
-make
+```bash
+docker login
 ```
 
-##### You have a working [Docker environment].
+**Criando Imagem**
 
-```
-git clone https://github.com/kubernetes/kubernetes
-cd kubernetes
-make quick-release
+```bash
+docker build -t lucaslira/avaliacao:questao01 .
 ```
 
-For the full story, head over to the [developer's documentation].
+**Criando Container**
 
-## Support
+```bash
+docker run -d -p 8080:80 --name avaliacao01 lucaslira/avaliacao:questao01
+```
 
-If you need support, start with the [troubleshooting guide],
-and work your way through the process that we've outlined.
+**Subindo Imagem para o Container Registre**
 
-That said, if you have questions, reach out to us
-[one way or another][communication].
+```bash
+docker image push lucaslira/avaliacao:questao01
+```
 
-[announcement]: https://cncf.io/news/announcement/2015/07/new-cloud-native-computing-foundation-drive-alignment-among-container
-[Borg]: https://research.google.com/pubs/pub43438.html
-[CNCF]: https://www.cncf.io/about
-[communication]: https://git.k8s.io/community/communication
-[community repository]: https://git.k8s.io/community
-[containerized applications]: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
-[developer's documentation]: https://git.k8s.io/community/contributors/devel#readme
-[Docker environment]: https://docs.docker.com/engine
-[Go environment]: https://golang.org/doc/install
-[GoPkg]: https://pkg.go.dev/k8s.io/kubernetes
-[GoPkg Widget]: https://pkg.go.dev/badge/k8s.io/kubernetes.svg
-[interactive tutorial]: https://kubernetes.io/docs/tutorials/kubernetes-basics
-[kubernetes.io]: https://kubernetes.io
-[Scalable Microservices with Kubernetes]: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
-[troubleshooting guide]: https://kubernetes.io/docs/tasks/debug/
+## Docker Compose
 
-## Community Meetings 
+Para instalar o docker compose acesse esse [link](https://docs.docker.com/compose/install/).
 
-The [Calendar](https://www.kubernetes.dev/resources/calendar/) has the list of all the meetings in Kubernetes community in a single location.
+**Rodar docker compose**
 
-## Adopters
+```bash
+docker-compose up --build -d
+```
 
-The [User Case Studies](https://kubernetes.io/case-studies/) website has real-world use cases of organizations across industries that are deploying/migrating to Kubernetes.
+## Kubernetes
 
-## Governance 
+> ⚠️ Para executar esses exemplos, vamos instalar o [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) para executar a CLI e o [minikube](https://kubernetes.io/pt-br/docs/tutorials/hello-minikube/) que disponibiliza um ambiente Kubernetes gratuito e acessível via navegador
 
-Kubernetes project is governed by a framework of principles, values, policies and processes to help our community and constituents towards our shared goals.
+**Criar pod**
 
-The [Kubernetes Community](https://github.com/kubernetes/community/blob/master/governance.md) is the launching point for learning about how we organize ourselves.
+```bash
+kubectl create -f pod-meu-nginx.yaml
+```
 
-The [Kubernetes Steering community repo](https://github.com/kubernetes/steering) is used by the Kubernetes Steering Committee, which oversees governance of the Kubernetes project.
+**Visualizar pods**
 
-## Roadmap 
+```bash
+kubectl get pods
+```
 
-The [Kubernetes Enhancements repo](https://github.com/kubernetes/enhancements) provides information about Kubernetes releases, as well as feature tracking and backlogs.
+**Criar deployment**
+
+```bash
+kubectl create -f deploy-meu-nginx.yaml
+```
+
+**Visualizar deployments**
+
+```bash
+kubectl get deployments
+```
+
+**Criar service**
+
+```bash
+kubectl create -f service-meu-nginx.yaml
+```
+
+**Visualizar services**
+
+```bash
+kubectl get svc
+```
+
+> ⚠️ Agora só acessar o ambiente através do comando **minikube dashboard**
+
+## Como contribuir
+
+- Faça um fork desse repositório;
+- Cria uma branch com a sua feature: `git checkout -b feature/minha-feature`;
+- Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`;
+- Faça push para a sua branch: `git push origin feature/minha-feature`.
+
+Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
+
+Feito com 💜 &nbsp;por Marcos Vinicius 👋 &nbsp;[Mande um Aló](https://www.linkedin.com/in/marcos-vinicius-38a320187/)
